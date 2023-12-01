@@ -12,9 +12,25 @@ app.get("/", (request, response) => {
 
 app.post("/books", async (request, response) => {
   try {
+    if (
+      !request.body.title ||
+      !request.body.author ||
+      !request.body.publishYear
+    ) {
+      return response.status(400).send({
+        message: "send all required field: author, title, publishYear",
+      });
+    }
+    const newBook = {
+      title: request.body.title,
+      author: request.body.author,
+      publishYear: request.body.publishYear,
+    };
+    const book = await Book.create(newBook);
+    return response.status(201).send(book);
   } catch (error) {
-    console.log(request);
-    response.status(500).send("welcome to mern stack tutorial");
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
   }
 });
 
