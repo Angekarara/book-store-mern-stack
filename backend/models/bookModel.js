@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const bookSchema = mongoose.Schema(
   {
     title: {
@@ -19,4 +20,4 @@ const bookSchema = mongoose.Schema(
   }
 );
 
-export const Book = mongoose.model("Cat", { name: String });
+export const Book = mongoose.model("Book", bookSchema);
